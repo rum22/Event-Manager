@@ -1,0 +1,30 @@
+{% extends "event/base.html" %}
+{% block content %}
+	<article class="media content-section">
+    <a href="{% url 'organization-posts' post.organization.username %}"><img class="rounded-circle article-img" src="{{ post.organization.profile_org.image.url }}"></a>
+	  <div class="media-body">
+    	<div class="article-metadata">
+      	<a class="mr-2" href="{% url 'organization-posts' object.organization.username %}">{{ object.organization }}</a>
+      	<small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+    	</div>
+      {% if object.organization == user %}
+      <div>
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+       <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+     </div>
+      {% endif %}
+      <a href="{% url 'event-home' %}">Return to Home Page</a>
+    	<h2 class="article-title">{{ object.title }}</h2>
+    	<p class="article-content">{{ object.content }}</p>
+    	<p class="article-content">Event on <b>{{ post.date_of_event }}</b> at {{ object.venue }}</p>
+      <p><a style="color:green" href="{% url 'filter' %}"><b>TAGS:</b></a></p>
+      {% for i in post.tags %}
+      <div>
+        <article style="width:120px" class="media content-section">
+        <a style="color:orange" href="{% url 'filtered' i %}">{{ i }}</a>
+      </article>
+      </div>
+    {% endfor %}
+  	</div>
+	</article>
+{% endblock content %}

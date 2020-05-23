@@ -1,0 +1,34 @@
+{% extends "event/base.html" %}
+{% block content %}
+	<article class="media content-section">
+    <a href="{% url 'organization-posts' post.organization.username %}"><img class="rounded-circle article-img" src="{{ post.organization.profile_org.image.url }}"></a>
+	  <div class="media-body">
+    	<div class="article-metadata">
+      	<a class="mr-2" href="{% url 'organization-posts' object.organization.username %}">{{ object.organization }}</a>
+      	<small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+    	</div>
+      {% if object.organization == user %}
+      <div>
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+       <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+     </div>
+      {% endif %}
+      {% if user.is_authenticated %}
+      <p><a href="add_bookmark/{{user}}/{{object.id}}/">Add to Bookmarks</a></p>
+      <p><a href="remove_bookmark/{{user}}/{{object.id}}/">Remove from Bookmarks</a></p>
+      <p><a href="{% url 'set-reminder' object.id %}">Add to Calender as an event</a></p>
+      {% endif %}
+    	<h2 class="article-title">{{ object.title }}</h2>
+    	<p class="article-content">{{ object.content }}</p>
+    	<p class="article-content">Event on <b>{{ post.date_of_event }}</b> at {{ object.venue }}</p>
+       <p><a style="color:green" href="{% url 'filter' %}"><b>TAGS:</b></a></p>
+      {% for i in post.tags %}
+      <div>
+        <article style="width:120px" class="media content-section">
+        <a style="color:orange" href="{% url 'filtered' i %}">{{ i }}</a>
+      </article>
+      </div>
+    {% endfor %} 
+  	</div>
+	</article>
+{% endblock content %}

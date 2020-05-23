@@ -1,0 +1,10 @@
+{% extends "event/base.html" %}
+{% block content %}
+		<ul class="list-group">
+            <li class="list-group-item list-group-item-light"><a href="{% url 'filtered' 'educational' %}">educational</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'filtered' 'fun' %}">fun</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'filtered' 'sports' %}">sports</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'filtered' 'party' %}">party</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'filtered' 'other' %}">other</a></li>
+         </ul>
+{% endblock content %}
